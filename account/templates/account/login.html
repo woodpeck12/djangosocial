@@ -1,0 +1,15 @@
+{% extends 'account_base.html' %}
+
+{% block title %}
+    Login Page-login.html
+{% endblock %}
+
+{% block content %}
+<div align="center">
+<form action="" method="POST">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <p><button class='btn btn-primary btn-group-lg ' type="submit" value="login">SUBMIT</button> </p>
+</form><
+</div>
+{% endblock %}
