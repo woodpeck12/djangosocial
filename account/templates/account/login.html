@@ -5,11 +5,21 @@
 {% endblock %}
 
 {% block content %}
-<div align="center">
-<form action="" method="POST">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <p><button class='btn btn-primary btn-group-lg ' type="submit" value="login">SUBMIT</button> </p>
-</form><
+<div class="container">
+  <div class="row">
+  	<div class="col-lg-2">
+    </div>
+    <div class="col-lg-2">
+		<div align="center" class="form-group">
+		<form action="" method="POST">
+		    {{ form }}
+		    {% csrf_token %}
+		    <p><button class='btn btn-primary btn-group-lg ' type="submit" value="login">SUBMIT</button> </p>
+		</form>
+		</div>
+	</div>
+	<div class="col-lg-2">
+	</div>
+ </div>
 </div>
 {% endblock %}
