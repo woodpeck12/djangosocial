@@ -20,9 +20,8 @@ loginin form using django default
 
     {% endfor %}
 {% else %}
-    <div class="alert alert-danger">
-        Pleaseput userid and password
-    </div>
+        <div class='bg-primary text-white'> this is login page using default django login(django_auth_view.LoginView)</div>
+        Please put userid and password
 {% endif %}
 
 
@@ -30,6 +29,7 @@ loginin form using django default
     <form action="{% url 'djangologin' %}" method="post">
         {{ form.as_p }}
         {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}" />
         <p><button type="submit" value="Log-in" class="btn btn-primary">Login</button></p>
     </form>
 </div>
