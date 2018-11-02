@@ -1,0 +1,38 @@
+{%  extends 'account_base.html' %}
+{%  block title %}
+loginin form using django default
+{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+    {% for in_position in form %}
+        {% for error in in_position.errors %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {%  endfor %}
+
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error }}</strong>
+        </div>
+    {% endfor %}
+
+    {% endfor %}
+{% else %}
+    <div class="alert alert-danger">
+        Pleaseput userid and password
+    </div>
+{% endif %}
+
+
+<div class="login-form">
+    <form action="{% url 'djangologin' %}" method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <p><button type="submit" value="Log-in" class="btn btn-primary">Login</button></p>
+    </form>
+</div>
+
+
+{% endblock %}
