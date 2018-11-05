@@ -13,8 +13,9 @@
       <div class="container d-flex justify-content-between">
         <a href="#" class="navbar-brand">Woodpeck-test</a>
         {% if user.is_authenticated %}
-            <font color="white"> Hi {{ user.username }}!</font>
-             <font color="white"><a href="{% url 'djangologout' %}">logout</a></font>
+            <p style="color:white"> Hi {{ user.username }}!
+             <a href="{% url "dashboard" %}">dashboard</a>
+             <a href="{% url "djangologout" %}">logout</a>
         {% else %}
             <span color="white"> not logged</span>
         {% endif %}

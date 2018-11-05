@@ -5,7 +5,8 @@ this is index
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
+  Hi {{ user.username }} ---- user.name!
+<div class="panel">you ar on index.html</div>
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'djangologin' %}">login</a>
