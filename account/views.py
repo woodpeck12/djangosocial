@@ -6,8 +6,16 @@ from django.contrib.auth.decorators import login_required
 
 #customised login
 from .forms import LoginForm
+from django.contrib.auth.views import PasswordChangeView
+from .forms import WoodPasswordChangeForm
 
 # Create your views here.
+class WoodChangePasswordView(PasswordChangeView):
+    template_name = 'registration/djangopassword_change_form.html'
+    form_class = WoodPasswordChangeForm
+
+
+
 
 
 def user_login(request):
