@@ -9,7 +9,7 @@ urlpatterns = [
     path('djangologin/',django_auth_view.LoginView.as_view(),name='djangologin'),
     path('djangologout/',django_auth_view.LogoutView.as_view(),name='djangologout'),
     path('djangopasswordchange/',WoodChangePasswordView.as_view(),name='djangopasswordchange'),
-    path('djangopasswordchangedone/',django_auth_view.PasswordChangeDoneView.as_view(),name='djangopasswordchangedone'),
+    path('djangopasswordchangedone/',django_auth_view.PasswordChangeDoneView.as_view(template_name='registration/djangopasswordchangedone_form.html'),name='password_change_done'),
     path('',views.dashboard,name='dashboard'),
 
 ]

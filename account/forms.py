@@ -8,7 +8,7 @@ class LoginForm(forms.Form):
 
 
 class WoodPasswordChangeForm(PasswordChangeForm):
-    template_name='registration/djangopassword_change_form.html'
+    #template_name='registration/djangopassword_change_form.html'
     old_password = forms.CharField(label='Old Password',required=True,widget=forms.PasswordInput(attrs={'class':'form-control'}))
     new_password1 = forms.CharField(label='New Password', required= True, widget=forms.PasswordInput(attrs={'class' : 'form-control'}))
     new_password2 = forms.CharField(label='Confirm Password', required = True, widget=forms.PasswordInput(attrs={'class' : 'form-control'}))
