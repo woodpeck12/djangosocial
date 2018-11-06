@@ -129,3 +129,9 @@ LOGOUT_REDIRECT_URL = 'home'
 LOGIN_REDIRECT_URL = 'home'
 
 LOGIN_URL = 'djangologin'
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
+#EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+#EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
