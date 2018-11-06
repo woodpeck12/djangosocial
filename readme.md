@@ -15,4 +15,29 @@ class WoodPasswordChangeForm(PasswordChangeForm):
     new_password1 = forms.CharField(label='New Password', required= True, widget=forms.PasswordInput(attrs={'class' : 'form-control'}))
     new_password2 = forms.CharField(label='Confirm Password', required = True, widget=forms.PasswordInput(attrs={'class' : 'form-control'}))
  ```
- 
+ 2. views.py -create WoodPasswordChangeForm from forms.py
+ ```
+ # Create your views here.
+class WoodChangePasswordView(PasswordChangeView):
+    template_name = 'registration/djangopassword_change_form.html'
+    form_class = WoodPasswordChangeForm
+
+
+ ```
+ 3. linked to urls.py
+ ```
+ path('djangopasswordchange/',WoodChangePasswordView.as_view(),name='djangopasswordchange'),
+ ```
+
+ ### reutn passwordchange
+ 1. must use URL name as 'password_change_done'
+ - cause after changing password, iDjango automatically find 'password_change_done' to reverse re-direct
+ ```
+ path('djangopasswordchangedone/',django_auth_view.PasswordChangeDoneView.as_view(template_name='registration/djangopasswordchangedone_form.html'),name='password_change_done'),
+ ```
+
+ ### customise password reset form
+ 1. add path into urls.py
+```
+path('djangopasswordreset/',django_auth_view.PasswordResetView.as_view(template_name='registration/djangopasswordreset_form.html'),name='djangopasswordreset'),
+```
