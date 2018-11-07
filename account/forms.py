@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.model import User
 
 from django.contrib.auth.forms import (PasswordChangeForm)
 
@@ -12,3 +13,6 @@ class WoodPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(label='Old Password',required=True,widget=forms.PasswordInput(attrs={'class':'form-control'}))
     new_password1 = forms.CharField(label='New Password', required= True, widget=forms.PasswordInput(attrs={'class' : 'form-control'}))
     new_password2 = forms.CharField(label='Confirm Password', required = True, widget=forms.PasswordInput(attrs={'class' : 'form-control'}))
+
+class WoodUserRegisterForm(forms.Form):
+	pass

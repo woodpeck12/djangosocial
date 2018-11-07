@@ -35,3 +35,27 @@ class WoodChangePasswordView(PasswordChangeView):
  ```
  path('djangopasswordchangedone/',django_auth_view.PasswordChangeDoneView.as_view(template_name='registration/djangopasswordchangedone_form.html'),name='password_change_done'),
  ```
+
+ ### customise password reset form
+ 1. add path into urls.py
+```
+path('djangopasswordreset/',django_auth_view.PasswordResetView.as_view(template_name='registration/djangopasswordreset_form.html'),name='djangopasswordreset'),
+```
+ 2. for testing purpose add below at settings.py
+ - pretend to send email and showing at console
+ ```
+ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ ```
+ 
+ 3. after run step 1, django call "password_reset_done"
+ - it will show success sent email. but, if user doesn't have email, it will die silently
+
+ 4. When user grep link from recevied email
+ - Django run "password_reset_confirm"
+ - example received link: http://localhost:8000/account/djangopasswordresetconfirm/Mg/514-1dc6d5be843db93621a9/
+ - URL format to process user link
+ ```
+ path('djangopasswordresetconfirm/<uidb64>/<token>/', django_auth_view.PasswordResetConfirmView.as_view(template_name='registration/djangopasswordresetconfirm.html'), name='password_reset_confirm'),
+```
+
+### make user creation
