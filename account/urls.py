@@ -12,7 +12,12 @@ urlpatterns = [
     path('djangopasswordchange/',WoodChangePasswordView.as_view(),name='djangopasswordchange'),
     path('djangopasswordchangedone/',django_auth_view.PasswordChangeDoneView.as_view(template_name='registration/djangopasswordchangedone_form.html'),name='password_change_done'),
     #the below is django password reset
-    path('djangopasswordreset/',django_auth_view.PasswordResetView.as_view(template_name='registration/djangopasswordreset_form.html'),name='djangopasswordreset'),
+    path('djangopasswordreset/',django_auth_view.PasswordResetView.as_view(template_name='registration/djangopasswordreset_form.html'),name='password_reset'),
+    path('djangopasswordresetdone/done/',django_auth_view.PasswordResetDoneView.as_view(template_name='registration/djangopasswordresetdone.html'),name='password_reset_done'),
+    path('djangopasswordresetconfirm/<uidb64>/<token>/', django_auth_view.PasswordResetConfirmView.as_view(template_name='registration/djangopasswordresetconfirm.html'), name='password_reset_confirm'),
+    path('djangopasswordresetcomplete/', django_auth_view.PasswordResetCompleteView.as_view(template_name='registration/djangopasswordresetcomplete.html'), name='password_reset_complete'),
+    #user registration
+    path('djangoregisteruser/',views.user_register,name='djangoregisteruser'),
 
     path('',views.dashboard,name='dashboard'),
 

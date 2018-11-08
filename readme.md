@@ -41,3 +41,40 @@ class WoodChangePasswordView(PasswordChangeView):
 ```
 path('djangopasswordreset/',django_auth_view.PasswordResetView.as_view(template_name='registration/djangopasswordreset_form.html'),name='djangopasswordreset'),
 ```
+ 2. for testing purpose add below at settings.py
+ - pretend to send email and showing at console
+ ```
+ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ ```
+ 
+ 3. after run step 1, django call "password_reset_done"
+ - it will show success sent email. but, if user doesn't have email, it will die silently
+
+ 4. When user grep link from recevied email
+ - Django run "password_reset_confirm"
+ - example received link: http://localhost:8000/account/djangopasswordresetconfirm/Mg/514-1dc6d5be843db93621a9/
+ - URL format to process user link
+ ```
+ path('djangopasswordresetconfirm/<uidb64>/<token>/', django_auth_view.PasswordResetConfirmView.as_view(template_name='registration/djangopasswordresetconfirm.html'), name='password_reset_confirm'),
+```
+
+### make user creation
+1. when save password from form, use set_passwrd('received password') for django do encryption
+2. User modeform is the easiest way
+```
+class WoodUserRegisterForm(forms.ModelForm):
+    password = forms.CharField(label='Password',required=True,widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    password1 = forms.CharField(label='Repeat Password',required=True,widget=forms.PasswordInput(attrs={'class':'form-control'}))
+
+    class Meta:
+        model = User
+        fields = ('username','first_name','email')
+
+    def clean_password1(self):
+        form_clean_data = self.cleaned_data
+
+        if form_clean_data['password'] != form_clean_data['password1']:
+            raise forms.ValidationError('Password doesn\'t match')
+
+        return form_clean_data['password1']
+```

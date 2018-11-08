@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 #customised login
 from .forms import LoginForm
 from django.contrib.auth.views import PasswordChangeView
-from .forms import WoodPasswordChangeForm
+from .forms import WoodPasswordChangeForm,WoodUserRegisterForm
 
 # Create your views here.
 class WoodChangePasswordView(PasswordChangeView):
@@ -40,6 +40,19 @@ def user_login(request):
         form = LoginForm()
     return render(request, 'account/login.html', {'form':form})
 
+def user_register(request):
+    if request.method == 'POST':
+        user_form = WoodUserRegisterForm(request.POST)
+
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save()
+            return render(request,'account/user_success_register.html',{'new_user' : new_user})
+    else:
+        user_form = WoodUserRegisterForm()
+
+    return render(request,'account/user_register_form.html',{'register_form': user_form})
 
 @login_required
 def dashboard(request):
