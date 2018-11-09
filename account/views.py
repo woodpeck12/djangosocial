@@ -8,7 +8,10 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm
 from django.contrib.auth.views import PasswordChangeView
 from .models import WoodUser
-from .forms import WoodPasswordChangeForm,WoodUserRegisterForm,WoodUserEditForm
+from .forms import (WoodPasswordChangeForm,
+                    WoodUserRegisterForm,
+                    UserEditForm,
+                    WoodUserEditForm)
 
 # Create your views here.
 class WoodChangePasswordView(PasswordChangeView):
@@ -49,6 +52,10 @@ def user_register(request):
             new_user = user_form.save(commit=False)
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
+
+            #add this to add extra dob field from  wooduser model
+            wooduser = WoodUser.objects.create(user=new_user)
+
             return render(request,'account/user_success_register.html',{'new_user' : new_user})
     else:
         user_form = WoodUserRegisterForm()
@@ -61,6 +68,17 @@ def dashboard(request):
                   'account/dashboard.html',\
                     {'section' : 'dashboard'})
 @login_required
-def edituser(request):
+def editwooduser(request):
     if request.method == POST:
-        edituserform = WoodUserEditForm(request.POST)
+        edituserform = UserEditForm(instance=request.user, data=request.POST)
+        editwooduserform = WoodUserEditForm(instance=request.user.wooduser,data=request.POST)
+
+        if edituserform.is_valid() and editwooduserform.is_valid():
+            edituserform.save()
+            editwooduserform.save()
+        else:
+            edituserform = UserEditForm(instance=request.user)
+            editwooduserform = WoodUserEditForm(instance=request.user.wooduser)
+
+        return render(request,'account/wooduseredit.html',{'edituserform':edituserform,'editwoouserform':editwooduserform})
+
