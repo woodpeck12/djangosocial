@@ -69,16 +69,18 @@ def dashboard(request):
                     {'section' : 'dashboard'})
 @login_required
 def editwooduser(request):
-    if request.method == POST:
+    if request.method == 'POST':
         edituserform = UserEditForm(instance=request.user, data=request.POST)
         editwooduserform = WoodUserEditForm(instance=request.user.wooduser,data=request.POST)
 
         if edituserform.is_valid() and editwooduserform.is_valid():
             edituserform.save()
             editwooduserform.save()
-        else:
-            edituserform = UserEditForm(instance=request.user)
-            editwooduserform = WoodUserEditForm(instance=request.user.wooduser)
+            return render(request,
+                          'account/dashboard.html', \
+                          {'section': 'dashboard'})
+    else:
+        edituserform = UserEditForm(instance=request.user)
+        editwooduserform = WoodUserEditForm(instance=request.user.wooduser)
 
-        return render(request,'account/wooduseredit.html',{'edituserform':edituserform,'editwoouserform':editwooduserform})
-
+    return render(request,'account/wooduseredit.html',{'edituserform':edituserform,'editwoouserform':editwooduserform})

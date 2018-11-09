@@ -6,4 +6,6 @@
 
 {% block content %}
     <pre>Welcome to Dashboard</pre>
+    <pre><a href="{% url 'djangoedituser' %}"> EDIT your profile</a></pre>
+    <pre><a href="{% url 'djangopasswordchange' %}"> CHANGE your PASSWORD</a></pre>
 {% endblock %}

@@ -23,7 +23,7 @@ urlpatterns = [
     path('djangoregisteruser/',views.user_register,name='djangoregisteruser'),
 
     #edit user
-    path('djangoedituser/',views),
+    path('djangoedituser/',views.editwooduser,name='djangoedituser'),
     path('',views.dashboard,name='dashboard'),
 
 ]

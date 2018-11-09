@@ -25,7 +25,7 @@ SECRET_KEY = '68!l9%eixr(%#^#yligja4x0we^ci7h*=_d1!$gmh-rdgx24c3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mysite.com','localhost', '127.0.0.1']
 
 # Application definition
 
@@ -36,8 +36,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
     'account',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,6 +65,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+      #          'social_django.context_processors.backends',  # <--
+      #          'social_django.context_processors.login_redirect', # <--
             ],
         },
     },
@@ -130,6 +135,18 @@ LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'djangologin'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+AUTHENTICATION_BACKENDS = [
+'django.contrib.auth.backends.ModelBackend',
+'account.emailauthentication.EmailAuthenticationProcessBackend',
+'social_core.backends.facebook.FacebookOAuth2',
+'social_core.backends.twitter.TwitterOAuth',
+'social_core.backends.google.GoogleOAuth2',
+]
+
+
+SOCIAL_AUTH_FACEBOOK_KEY = '178411759776759' # Facebook App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = 'bd429912f62a64de382ba4e401044a4f' # Facebook App Secret
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
