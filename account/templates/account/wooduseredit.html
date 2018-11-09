@@ -1,0 +1,12 @@
+{% extends "account_base.html" %}
+{% block title %}Edit your account --- using extend user model{% endblock %}
+{% block content %}
+<h1>Check and Edit your account</h1>
+
+<form action="." method="post" enctype="multipart/form-data">
+{{ edituserform.as_p }}
+{{ editwoouserform.as_p }}
+{% csrf_token %}
+<p><input type="submit" value="Save changes"></p>
+</form>
+{% endblock %}
