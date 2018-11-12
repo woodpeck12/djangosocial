@@ -134,3 +134,46 @@ messages.error(request, 'Something went wrong')
 {% endif %}
 ```
 
+### Divert User authentication handling
+1. AUTHENTICATION_BACKENDS = (django.contrib.auth.backends.ModelBackend) handle general Authetication using UserID and password
+2. try to login with Email also.
+```python
+from django.contrib.auth.models import User
+
+class EmailAuthenticationProcessBackend(object):
+    # using email to check user
+
+    def authenticate(self, request, username=None, password=None):
+        try:
+            user = User.objects.get(email = username)
+            if user.check_password(password):
+                return user
+            return None
+        except User.DoesNotExist:
+            return None
+
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return None
+
+AUTHENTICATION_BACKENDS = [
+'django.contrib.auth.backends.ModelBackend',
+'account.emailauthentication.EmailAuthenticationProcessBackend',
+]
+```
+
+### how to add social media authentication
+step 1: install module : pip install python-social-auth and pip install social-auth-app-django
+step 2: add above module to INSTALLED_APPS = {'social_django',}
+step 3: python manage.py migrates  --- it create all social account related databse
+step 4: add AUTHENTICATION_BACKENDS = [
+'django.contrib.auth.backends.ModelBackend',
+'social_core.backends.facebook.FacebookOAuth2',
+'social_core.backends.twitter.TwitterOAuth',
+'social_core.backends.google.GoogleOAuth2',
+]
+
+
+good reference site: https://simpleisbetterthancomplex.com/tutorial/2016/10/24/how-to-add-social-login-to-django.html
